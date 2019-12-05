@@ -10,6 +10,7 @@ gem 'rails', '~> 6.0.1'
 gem 'devise'
 
 #chasegems
+gem 'iex-ruby-client'
 gem 'twitter-bootstrap-rails'
 gem 'jquery'
 gem 'devise-bootstrap-views'
