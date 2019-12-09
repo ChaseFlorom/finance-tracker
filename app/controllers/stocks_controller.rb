@@ -1,23 +1,14 @@
+puts "TESTEST"
 class StocksController < ApplicationController 
-   def search
-      if params[:stock].present?
-         @stock = Stock.new_from_lookup(params[:stock])
-         if @stock 
-            puts "should be"
-            respond_to do |format|
-            format.js { render partial: 'users/result' }            
-            end
-
-         else
-            puts "incorrect symbol"
-            flash[:danger] = "You have entered an incorrect symbol."
-            redirect_to my_portfolio_path
-         end
-          
-      else
-         puts "nothing"
-         flash[:danger] = "You need to type something, what did you expect to happen?"
-         redirect_to my_portfolio_path
-      end
-   end
+  def search
+    if params[:stock].blank?
+      flash.now[:danger] = "You have not entered anything...What did you expect to happen?"
+    else
+      @stock = Stock.new_from_lookup(params[:stock])
+      flash.now[:danger] = "That is an incorrect symbol" unless @stock
+    end 
+    respond_to do |format|
+      format.js {render partial: 'users/result'}
+    end
+  end
 end
